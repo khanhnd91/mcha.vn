@@ -1,0 +1,119 @@
+<?php get_header(); ?>
+    <!-- main area -->
+    <article>
+      <!-- top image -->
+      <div class="container">
+      <div class="wideslider">
+      <ul>
+        <li>
+          <a href="#1">
+            <p>観光客・一見さんもOK！ 「祇園喫茶Rinken」の舞妓さんイベント！ 
+            </p>
+            <img src="<?php bloginfo('template_directory'); ?>/images/sample/th_5I7C8676.jpg" alt="">
+            <div class="author_img_top">
+            <img src="<?php bloginfo('template_directory'); ?>/images/author/index.jpg">Keishi Kawakami 
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="#2">
+            <p>【和倉温泉モニターツアー】4人の外国人旅行者の目に映った和倉の町とは？ 
+            </p>
+            <img src="<?php bloginfo('template_directory'); ?>/images/sample/DSC_0496.jpg" alt="">
+            <div class="author_img_top">
+            <img src="<?php bloginfo('template_directory'); ?>/images/author/6Fy1Z9f7_400x400.jpg">Ito Kentaro 
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="#3">
+            <p>生放送のアニメだからできる！笑いあり、ハプニングありの『みならいディーバ』の様子をお届け 
+            </p>
+            <img src="<?php bloginfo('template_directory'); ?>/images/sample/IMG_18741.jpg" alt="">
+            <div class="author_img_top">
+            <img src="<?php bloginfo('template_directory'); ?>/images/author/profile_1240557231_75sq_1396633648.jpg">Akihito Usui 
+            </div>
+          </a>
+        </li>
+      </ul>
+      </div>
+      </div>
+      <div id="wrapper">
+      <!-- main -->
+      <div id="main">
+      <div class="center">
+      <section>
+        <!-- pick up -->
+        <div class="pickup">
+        <div class="pickup_tittle">Pick Up</div>
+
+
+
+
+
+
+
+<?php
+	query_posts( $args );
+	// The Loop
+	while ( have_posts() ) : the_post();
+	
+	$image_id = get_post_thumbnail_id();
+$image_url = wp_get_attachment_image_src($image_id, true);
+
+
+	
+?>
+
+
+<!-- pickup_box -->
+<div class="pickup_box">
+	<a href="#">
+		<div class="pickup_category" style="background-color: #ffab1a;">
+			<h3>FOOD </h3>
+		</div>
+		<div class="pickup_image">
+			<img src="<?php echo wp_get_attachment_url(get_post_thumbnail_id()); ?>">
+		</div>
+		<div class="pickup_text">
+			<?php the_title(); ?>
+			<p><?php the_excerpt(); ?></p>
+		</div>
+	</a>
+
+	<!-- ライターリンクをaタグの外に出す -->
+	<div class="pickup_written">
+		Written by <a href="#">AI Yoneda</a> on 2015/5/30
+	</div>
+</div><!-- pickup_box_end -->
+
+<?php
+	endwhile;
+	// Reset Query
+	wp_reset_query();
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+      </section>
+      </div>
+      </div>
+<?php get_sidebar('home'); ?>
+    <article></article>
+    <!-- 無限読み込み開始 -->
+<?php get_footer(); ?>

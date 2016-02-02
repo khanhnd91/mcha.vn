@@ -1,0 +1,223 @@
+<?php get_header(); ?>
+
+
+
+<?php global $author; $userdata = get_userdata($author); ?>
+
+
+
+<div id="main">
+
+	<div id="content-wrapper">
+
+		<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+
+		<div class="breadcrumb">
+
+			<?php if (function_exists('dimox_breadcrumbs')) dimox_breadcrumbs(); ?>
+
+		</div><!--breadcrumb-->
+
+		<div id="title-main">
+
+			<h1 class="headline"><?php the_title(); ?></h1>
+
+			<span class="post-byline">
+			<?php _e( 'By', 'mvp-text' ); ?> 
+			<?php the_author_posts_link(); ?> 
+			<?php _e( 'on', 'mvp-text' ); ?> 
+			<?php the_time(get_option('date_format')); ?></span>
+			
+			<?php $authordesc = get_the_author_meta( 'twitter' ); if ( ! empty ( $authordesc ) ) { ?>
+            <span class="twitter-byline"><a href="http://www.twitter.com/<?php the_author_meta('twitter'); ?>" target="blank">@<?php the_author_meta('twitter'); ?></a></span><?php } ?>
+
+		</div><!--title-main-->
+
+		<div id="home-main">
+
+			<div id="post-area" <?php post_class(); ?>>
+
+				<?php $ht_socialbox = get_option('ht_socialbox'); if ($ht_socialbox == "true") { ?>
+
+				<div id="social-box">
+
+					<ul class="post-social">
+
+						<li>
+
+							<div class="fb-like" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false"></div>
+
+						</li>
+
+						<li>
+
+							<a href="http://twitter.com/share" class="twitter-share-button" data-lang="ja" data-count="horizontal" data-via="matcha_pr">Tweet</a>
+
+						</li>
+
+						<li>
+
+							<g:plusone size="medium" annotation="bubble" width="90"></g:plusone>
+
+						</li>
+
+						<li>
+
+							<?php $pinterestimage = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' ); ?>
+
+<a href="http://pinterest.com/pin/create/button/?url=<?php echo urlencode(get_permalink($post->ID)); ?>&media=<?php echo $pinterestimage[0]; ?>&description=<?php the_title(); ?>" class="pin-it-button" count-layout="horizontal">Pin It</a>
+
+						</li>
+
+					</ul>
+
+				</div><!--social-box-->
+
+				<?php } ?>
+
+				<div id="content-area">
+
+					<?php $ht_featured_img = get_option('ht_featured_img'); if ($ht_featured_img == "true") { ?>
+
+						<?php if(get_post_meta($post->ID, "mvp_video_embed", true)): ?>
+
+							<?php echo get_post_meta($post->ID, "mvp_video_embed", true); ?>
+
+						<?php else: ?>
+
+							<?php $mvp_show_hide = get_post_meta($post->ID, "mvp_featured_image", true); if ($mvp_show_hide == "hide") { ?>
+
+							<?php } else { ?>
+
+								<?php if (  (function_exists('has_post_thumbnail')) && (has_post_thumbnail())  ) { /* if post has a thumbnail */ ?>
+<!--
+								<div class="post-image">
+
+									<?php the_post_thumbnail('post-thumb'); ?>
+
+								</div>--><!--post-image-->
+
+								<?php } ?>
+
+							<?php } ?>
+
+						<?php endif; ?>
+
+					<?php } ?>
+
+					<?php the_content(); ?>
+
+					<?php wp_link_pages(); ?>
+
+				</div><!--content-area-->
+
+
+				<?php $author = get_option('ht_author_box'); if ($author == "true") { ?>
+
+				<div id="author-info">
+                <h4>Writer</h4>
+
+					<?php echo get_avatar( get_the_author_meta('email'), '60' ); ?>
+
+
+<!--20140420_by_hayashi-->
+<div id="contact-info">
+<ul>
+<li><?php the_author_meta( 'display_name' ); ?></li>
+<li><?php $authordesc = get_the_author_meta( 'facebook' ); if ( ! empty ( $authordesc ) ) { ?><a href="https://www.facebook.com/<?php the_author_meta('facebook'); ?>" target="blank"><img src="http://mcha.jp/wp-content/uploads/2014/04/author_facebook.png"></a><?php } ?></li>
+<li><?php $authordesc = get_the_author_meta( 'twitter' ); if ( ! empty ( $authordesc ) ) { ?><a href="http://www.twitter.com/<?php the_author_meta('twitter'); ?>" target="blank"><img src="http://mcha.jp/wp-content/uploads/2014/04/author_twitter.png"></a><?php } ?></li>
+<li><?php $authordesc = get_the_author_meta( 'google_plus' ); if ( ! empty ( $authordesc ) ) { ?><a href="https://plus.google.com/<?php the_author_meta('google_plus'); ?>" target="blank"><img src="http://mcha.jp/wp-content/uploads/2014/04/author_google.png"></a><?php } ?></li>
+<li><?php $authordesc = get_the_author_meta( 'url' ); if ( ! empty ( $authordesc ) ) { ?><a href="<?php the_author_meta( 'url' ); ?>" target="blank"><img src="http://mcha.jp/wp-content/uploads/2014/04/author_website.png"></a><?php } ?></li>
+<ul>
+</div><!--contact-info-->
+<!--20140420_by_hayashi-->
+
+
+
+					<div id="author-text">
+
+						<?php the_author_meta('description'); ?>
+                        
+					</div><!--author-text-->
+
+				</div><!--author-info-->
+
+				<?php } ?>
+
+				<div class="post-tags">
+
+					<span class="post-tags-header"><?php _e( 'Related Items', 'mvp-text' ); ?></span><?php the_tags('','','') ?>
+
+				</div><!--post-tags-->
+
+				<?php $ht_socialbox = get_option('ht_socialbox'); if ($ht_socialbox == "true") { ?>
+
+				<div id="social-box">
+
+					<ul class="post-social">
+
+						<li>
+
+							<div class="fb-like" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false"></div>
+
+						</li>
+
+						<li>
+
+							<a href="http://twitter.com/share" class="twitter-share-button" data-lang="ja" data-count="horizontal" data-via="matcha_pr">Tweet</a>
+
+						</li>
+
+						<li>
+
+							<g:plusone size="medium" annotation="bubble" width="90"></g:plusone>
+
+						</li>
+
+						<li>
+
+							<?php $pinterestimage = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' ); ?>
+
+<a href="http://pinterest.com/pin/create/button/?url=<?php echo urlencode(get_permalink($post->ID)); ?>&media=<?php echo $pinterestimage[0]; ?>&description=<?php the_title(); ?>" class="pin-it-button" count-layout="horizontal">Pin It</a>
+
+						</li>
+
+					</ul>
+
+				</div><!--social-box-->
+
+				<?php } ?>
+
+			</div><!--post-area-->
+
+			<?php $ht_prev_next = get_option('ht_prev_next'); if ($ht_prev_next == "true") { ?>
+
+			<div class="prev-next-wrapper">
+
+				<div class="prev-post">
+
+					<?php previous_post_link('&larr; '.__('Previous Story', 'mvp-text').' %link', '%title', TRUE); ?>
+
+				</div><!--prev-post-->
+
+				<div class="next-post">
+
+					<?php next_post_link(''.__('Next Story', 'mvp-text').' &rarr; %link', '%title', TRUE); ?>
+
+				</div><!--next-post-->
+
+			</div><!--prev-next-wrapper-->
+
+			<?php } ?>
+
+			<?php getRelatedPosts(); ?>
+
+			<?php comments_template(); ?>
+
+		</div><!--home-main-->
+
+		<?php endwhile; endif; ?>
+
+<?php get_sidebar(); ?>
+
+<?php get_footer(); ?>
