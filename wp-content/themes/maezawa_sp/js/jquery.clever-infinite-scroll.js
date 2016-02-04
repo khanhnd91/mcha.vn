@@ -66,18 +66,26 @@
 		// Set hidden span elements and history
 		$(settings.contentSelector + ":last").append(generateHiddenSpans(title, path));
 		setTitleAndHistory(title, path);
-
 		/**
 		 * scroll
 		*/
 		var lastScroll = 0, currentScroll;
 		$(window).scroll(function() {
+                    var collHidden = 0;
+                    $('.more .coll-hidden').each(function() {
+                        if($(this).css('display') === 'none'){
+                            collHidden = collHidden + $(this).height();
+
+                        }
+                    });
+                    documentHeight = $(document).height() - collHidden;
+
 			// Detect where you are
 			window.clearTimeout($.data("this", "scrollTimer"));
 			$.data(this, "scrollTimer", window.setTimeout(function() {
 				// Get current scroll position
 				currentScroll = $(window).scrollTop();
-
+                                
 				// Detect whether it's scrolling up or down by comparing current scroll location and last scroll location
 				if(currentScroll > lastScroll) {
 					// If it's scrolling down
@@ -106,7 +114,7 @@
 				lastScroll = currentScroll;
 			}, 200));
 
-			if($(window).scrollTop() + windowHeight + threshold >= documentHeight) {
+			if($(window).scrollTop() >= documentHeight ) {
 				// If scrolling close to the bottom
 
 				// Getting URL from settings.nextSelector
@@ -131,19 +139,30 @@
 								//If there is no nextSelector in the contentSelector, get next Slecter from response and append it.
 								$(settings.contentsWrapperSelector).append($(res).find(settings.nextSelector));
 							}
-							documentHeight = $(document).height();
+                                                        collHidden = 0;
+                                                        $('.more .coll-hidden').each(function() {
+                                                            if($(this).css('display') === 'none'){
+                                                                collHidden = collHidden + $(this).height();
+
+                                                            }
+                                                        });
+							documentHeight = $(document).height() - collHidden;
 							$contents = $(settings.contentSelector);
 							$("#cis-load-img").remove();
-							//twitter‚ÆFacebook‚ÌƒXƒNƒŠƒvƒg‚ğÄ“Ç‚İ‚İ
+							//twitterï¿½ï¿½Facebookï¿½ÌƒXï¿½Nï¿½ï¿½ï¿½vï¿½gï¿½ï¿½ï¿½Ä“Ç‚İï¿½ï¿½ï¿½
 							FB.XFBML.parse(document.getElementById('fb-like'));
 							twttr.widgets.load(document.getElementById('p-entry__tw-follow__cont'));
 							
-							//ƒAƒiƒŠƒeƒBƒNƒX‚É”½‰f‚³‚¹‚é
+							//ï¿½Aï¿½iï¿½ï¿½ï¿½eï¿½Bï¿½Nï¿½Xï¿½É”ï¿½ï¿½fï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							var nextGuid  = path.match(/\/[0-9]+$/);
+                                                        if(settings.callback){
+                                                            settings.callback.call(this);
+                                                        }
 							ga('send',  'pageview', {
 						                'page' : nextGuid,
 						                'title': title});
 							ga('send', 'event','matcha','autoload',nextGuid);
+
 						}
 					});
 				}
