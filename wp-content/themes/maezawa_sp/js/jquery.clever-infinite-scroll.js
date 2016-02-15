@@ -71,14 +71,7 @@
 		*/
 		var lastScroll = 0, currentScroll;
 		$(window).scroll(function() {
-                    var collHidden = 0;
-                    $('.more .coll-hidden').each(function() {
-                        if($(this).css('display') === 'none'){
-                            collHidden = collHidden + $(this).height();
-
-                        }
-                    });
-                    documentHeight = $(document).height() - collHidden;
+                    documentHeight = $(document).height();
 
 			// Detect where you are
 			window.clearTimeout($.data("this", "scrollTimer"));
@@ -114,7 +107,7 @@
 				lastScroll = currentScroll;
 			}, 200));
 
-			if($(window).scrollTop() >= documentHeight ) {
+			if($(window).scrollTop() + windowHeight + threshold >= documentHeight ) {
 				// If scrolling close to the bottom
 
 				// Getting URL from settings.nextSelector
@@ -139,14 +132,7 @@
 								//If there is no nextSelector in the contentSelector, get next Slecter from response and append it.
 								$(settings.contentsWrapperSelector).append($(res).find(settings.nextSelector));
 							}
-                                                        collHidden = 0;
-                                                        $('.more .coll-hidden').each(function() {
-                                                            if($(this).css('display') === 'none'){
-                                                                collHidden = collHidden + $(this).height();
-
-                                                            }
-                                                        });
-							documentHeight = $(document).height() - collHidden;
+							documentHeight = $(document).height();
 							$contents = $(settings.contentSelector);
 							$("#cis-load-img").remove();
 							//twitter��Facebook�̃X�N���v�g���ēǂݍ���
