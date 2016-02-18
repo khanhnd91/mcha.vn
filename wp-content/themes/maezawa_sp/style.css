@@ -1178,6 +1178,26 @@ nav#breadcrumbs ol li:first-child:before {
     overflow: hidden;
 }
 
+.more.hide-class {
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.more.hide-class > a {
+    background-image: url(./images/readmore.png);
+    background-repeat: repeat-x;
+    background-position: bottom;
+    margin: 0 auto;
+    color: #111;
+    font-weight: 600;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    bottom: -80px;
+    padding: 40px 0 20px;
+}
+
 .author p {
 	color: #666;
 	font-weight: 500;
@@ -2894,3 +2914,17 @@ special_direct h3 {
 #PlagOpen1 a:hover {
     color: #fff;
 }
+.more.hide-class > div {
+    text-align: center;
+    width: 100%;
+}
+.more.hide-class a {
+    background: #f9423a none repeat scroll 0 0;
+    border-radius: 5px;
+    color: #fff;
+    padding: 20px;
+    position: relative;
+    top: 40px;
+}
+
+

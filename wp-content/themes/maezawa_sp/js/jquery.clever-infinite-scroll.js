@@ -135,19 +135,19 @@
 							documentHeight = $(document).height();
 							$contents = $(settings.contentSelector);
 							$("#cis-load-img").remove();
+                                                        if(settings.callback){
+                                                            settings.callback.call(this);
+                                                        }
 							//twitter��Facebook�̃X�N���v�g���ēǂݍ���
 							FB.XFBML.parse(document.getElementById('fb-like'));
 							twttr.widgets.load(document.getElementById('p-entry__tw-follow__cont'));
 							
 							//�A�i���e�B�N�X�ɔ��f������
 							var nextGuid  = path.match(/\/[0-9]+$/);
-                                                        if(settings.callback){
-                                                            settings.callback.call(this);
-                                                        }
-							ga('send',  'pageview', {
+							__gaTracker('send',  'pageview', {
 						                'page' : nextGuid,
 						                'title': title});
-							ga('send', 'event','matcha','autoload',nextGuid);
+							__gaTracker('send', 'event','matcha','autoload',nextGuid);
 
 						}
 					});

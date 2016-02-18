@@ -58,11 +58,16 @@
 
 	      <div class="article">
 	      <!--more-->
+              <?php
+                $content = $post->post_content;
+                $content = preg_replace('/<article>(.*)<section id="post-area">/s', '',$content);
+                $content = preg_replace('/<\/section>(.*)<\/article>/s', '',$content);              
+              ?>
 	      <div class="more">
 
 	      <?php
 	      	//echo $post->post_content;
-	      	echo apply_filters('the_content', $post->post_content);
+	      	echo apply_filters('the_content', $content);
 	      ?>
 
 	      </div><!--more end-->
@@ -75,7 +80,7 @@
 	  <!-- social -->
 	  <?php social_share(); ?>
 	  </div>
-
+	  </section>
 
 <?php
 	if(jpnCheck()) :
@@ -104,7 +109,7 @@
 	<!-- 記事がよかったらいいね　ここから -->
 
 	 <!-- 記事がよかったらいいねPC -->
-	            <!-- <div class="p-entry__push">
+	            <div class="p-entry__push">
 	              <div class="p-entry__pushThumb" style="background-image: url('<?php echo wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>')"></div>
 	              <div class="p-entry__pushLike">
 	                
@@ -141,7 +146,7 @@
 	                <a href="https://twitter.com/MATCHA_global" class="twitter-follow-button p-entry__tw-follow__item" data-lang="en" data-show-count="false" data-size="large" data-show-screen-name="false">@MATCHA_global</a>
 	                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 	              </div>
-	</div> -->
+	</div>
 
 	 <!-- 記事がよかったらいいね　ここまで -->
 
